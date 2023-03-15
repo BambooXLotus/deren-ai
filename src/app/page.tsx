@@ -4,12 +4,7 @@ import {
   SunIcon,
 } from "@heroicons/react/24/outline";
 
-type HomeProps = {
-  id?: string;
-};
-
-const Home: React.FC<HomeProps> = ({id}) => {
-  console.log(id)
+export default function HomePage() {
   return (
     <div className="flex h-screen flex-col items-center justify-center px-2 text-white">
       <h1 className="mb-20 text-5xl font-bold">Deren ChatGPT</h1>
@@ -70,6 +65,4 @@ const Home: React.FC<HomeProps> = ({id}) => {
       </div>
     </div>
   );
-};
-
-export default Home;
+}
