@@ -8,7 +8,8 @@ type HomeProps = {
   id?: string;
 };
 
-const Home: React.FC<HomeProps> = () => {
+const Home: React.FC<HomeProps> = ({id}) => {
+  console.log(id)
   return (
     <div className="flex h-screen flex-col items-center justify-center px-2 text-white">
       <h1 className="mb-20 text-5xl font-bold">Deren ChatGPT</h1>
