@@ -23,5 +23,8 @@ const config = {
   experimental: {
     appDir: true,
   },
+  images: {
+    domains: ["googleusercontent.com", "lh3.googleusercontent.com"],
+  },
 };
 export default config;

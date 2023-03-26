@@ -1,15 +1,35 @@
-import { PlusIcon } from "@heroicons/react/24/solid";
+import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { api } from "~/utils/api";
+import { Button } from "./ui/Button";
 
 type NewChatProps = {
   id?: string;
 };
 
 const NewChat: React.FC<NewChatProps> = () => {
+  const router = useRouter();
+
+  const { mutateAsync: createChat } = api.chat.create.useMutation();
+
+  async function handleCreateChat() {
+    await createChat(
+      {
+        title: "WONK",
+      },
+      {
+        onSuccess: ({ id: chatId }) => {
+          router.push(`/chat/${chatId}`);
+        },
+      }
+    );
+  }
+
   return (
-    <div className="flex cursor-pointer items-center justify-center space-x-2 rounded-lg border border-gray-700 px-5 py-3 text-sm text-gray-300 transition-all duration-200 ease-out hover:bg-gray-700/70">
-      <PlusIcon className="h-4 w-4" />
+    <Button variant="outline" onClick={() => void handleCreateChat()}>
+      <Plus className="h-4 w-4" />
       <p>New Chat</p>
-    </div>
+    </Button>
   );
 };
 
