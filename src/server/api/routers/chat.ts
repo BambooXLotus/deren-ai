@@ -1,10 +1,32 @@
 import { z } from 'zod';
-import { createTRPCRouter, protectedProcedure, publicProcedure } from '~/server/api/trpc';
+import { createTRPCRouter, protectedProcedure } from '~/server/api/trpc';
 
 export const chatRouter = createTRPCRouter({
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.example.findMany();
-  }),
+  getAll: protectedProcedure
+    .query(({ ctx }) => {
+      const { user: { id: userId } } = ctx.session
+
+      return ctx.prisma.chat.findMany(
+        {
+          where: {
+            userId
+          },
+          orderBy: [
+            {
+              createdAt: 'asc'
+            }
+          ],
+          include: {
+            message: {
+              select: {
+                body: true
+              }
+            }
+          }
+        },
+
+      );
+    }),
 
   create: protectedProcedure
     .input(z.object({ title: z.string() }))

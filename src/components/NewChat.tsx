@@ -1,5 +1,5 @@
 import { Plus } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 import { Button } from "./ui/Button";
 
@@ -19,7 +19,9 @@ const NewChat: React.FC<NewChatProps> = () => {
       },
       {
         onSuccess: ({ id: chatId }) => {
-          router.push(`/chat/${chatId}`);
+          void router.push({
+            query: { chatId },
+          });
         },
       }
     );
